@@ -1,70 +1,24 @@
 <!DOCTYPE html>
- <html lang="ja">
- <head>
-  <meta charset="UTF-8">
-  <title>お化け屋敷の待ち時間</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #111;
-      color: #fff;
-      text-align: center;
-      padding: 50px;
-    }
-    .container {
-      background: #222;
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 0 15px rgba(255,0,0,0.5);
-    }
-    .time {
-      font-size: 48px;
-      margin: 20px 0;
-      color: #ff4444;
-    }
-    .count {
-      font-size: 32px;
-      margin: 10px 0;
-    }
-    .updated {
-      font-size: 14px;
-      margin-top: 20px;
-      color: #aaa;
-    }
-  </style>
- <script>
-    const apiUrl = "https://script.google.com/macros/s/AKfycbyAF5kcY4-Ma_THTRzASpOtKOi67n37ChxP5tGgRwgP-OmmMa5Aai0DBYcpj6UuN5Bz/exec";
-  
-    async function fetchWaitTime() {
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-
-    const waitTime = parseInt(data.waitTime);
-    const groupCount = parseInt(data.groupCount);
-
-    document.getElementById("wait-time").textContent =
-      isNaN(waitTime) ? "表示できません" : waitTime + " 分";
-    document.getElementById("group-count").textContent =
-      isNaN(groupCount) ? "表示できません" : groupCount + " 組待ち";
-  } catch (e) {
-    console.error("データ取得に失敗しました:", e);
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>お化け屋敷入場フォーム</title>
+<script>
+  function reloadForm() {
+    const iframe = document.getElementById('formFrame');
+    // 3秒後にフォームを再表示（疑似リセット）
+    setTimeout(() => {
+      iframe.src = iframe.src;
+    }, 3000);
   }
-}
-  
-    setInterval(fetchWaitTime, 10000);
-    window.onload = fetchWaitTime;
-  </script>
-  
+</script>
 </head>
 <body>
-  <div class="container">
-    <h1>💀 お化け屋敷 待ち時間表示 💀</h1>
-    <div class="time" id="wait-time">-- 分</div>
-    <div class="count" id="group-count">-- 組待ち</div>
-    <div class="updated">最終更新: 2025-06-17 02:16</div>
-  </div>
+  <iframe
+    id="formFrame"
+    src="https://docs.google.com/forms/d/e/1FAIpQLSdaeGF8fBNQSycYzHNJa8EEAwPbm5-iq3jFAUfJa3XBLbY0Mg/viewform?usp=dialog"
+    width="640" height="800" frameborder="0"
+    onload="reloadForm()"
+  ></iframe>
 </body>
-</html> 
+</html>
