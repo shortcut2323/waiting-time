@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>お化け屋敷入場フォーム</title>
-  <script>
-    let submitted = false;
-
-    function checkFormSubmission() {
-      const iframe = document.getElementById('formFrame');
-      if (submitted) return;
-      const currentUrl = iframe.contentWindow.location.href;
-      // 完了画面のURLに含まれるパターンを検出
-      if (currentUrl.includes('formResponse')) {
-        submitted = true;
-        console.log("送信完了検出！");
-        // 数秒後にリロード（または別の画面に遷移）
-        setTimeout(() => {
-          iframe.src = iframe.src;
-          submitted = false;
-        }, 4000); // 4秒待ってリロード
-      }
-    }
-
-    setInterval(checkFormSubmission, 1000); // 1秒ごとにチェック
-  </script>
+<meta charset="UTF-8">
+<title>お化け屋敷入場フォーム</title>
+<script>
+  function reloadForm() {
+    const iframe = document.getElementById('formFrame');
+    // 3秒後にフォームを再表示（疑似リセット）
+    setTimeout(() => {
+      iframe.src = iframe.src;
+    }, 3000);
+  }
+</script>
 </head>
 <body>
   <iframe
     id="formFrame"
-    src="https://docs.google.com/forms/d/e/1FAIpQLSdaeGF8fBNQSycYzHNJa8EEAwPbm5-iq3jFAUfJa3XBLbY0Mg/viewform?embedded=true"
+    src="https://docs.google.com/forms/d/e/【あなたのフォームID】/viewform?embedded=true"
     width="640" height="800" frameborder="0"
+    onload="reloadForm()"
   ></iframe>
 </body>
 </html>
