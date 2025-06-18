@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>お化け屋敷入場フォーム</title>
-<script>
-  function reloadForm() {
-    const iframe = document.getElementById('formFrame');
-    // 3秒後にフォームを再表示（疑似リセット）
-    setTimeout(() => {
-      iframe.src = iframe.src;
-    }, 5000);
-  }
-</script>
+  <meta charset="UTF-8">
+  <title>お化け屋敷入場フォーム</title>
+  <script>
+    function reloadFormIfSubmitted() {
+      const iframe = document.getElementById('formFrame');
+      try {
+        const currentURL = iframe.contentWindow.location.href;
+        if (currentURL.includes('formResponse')) {
+          // フォーム送信完了後だけリロード（5秒後）
+          setTimeout(() => {
+            iframe.src = iframe.src;
+          }, 3000); // 少し早く戻すなら3秒でもOK
+        }
+      } catch (e) {
+        // cross-origin のためにエラーになることもあるが無視
+      }
+    }
+  </script>
 </head>
 <body>
   <iframe
     id="formFrame"
-    src="https://docs.google.com/forms/d/e/1FAIpQLSdaeGF8fBNQSycYzHNJa8EEAwPbm5-iq3jFAUfJa3XBLbY0Mg/viewform?usp=dialog"
+    src="https://docs.google.com/forms/d/e/1FAIpQLSdaeGF8fBNQSycYzHNJa8EEAwPbm5-iq3jFAUfJa3XBLbY0Mg/viewform?embedded=true"
     width="640" height="800" frameborder="0"
-    onload="reloadForm()"
+    onload="reloadFormIfSubmitted()"
   ></iframe>
 </body>
 </html>
